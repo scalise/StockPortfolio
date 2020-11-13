@@ -9,6 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web.MVC", "Web.MVC\Web.MVC.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{DB5CE60D-CF1B-4BC7-A455-48060B486C9E}"
 	ProjectSection(SolutionItems) = preProject
+		package.json = package.json
 		README.txt = README.txt
 	EndProjectSection
 EndProject

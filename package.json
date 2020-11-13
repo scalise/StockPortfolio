@@ -1,0 +1,4 @@
+"scripts": {
+  "postinstall": "cd Web.Vue3 && npm install",
+  ...
+}
