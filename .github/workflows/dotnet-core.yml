@@ -22,7 +22,7 @@ jobs:
       with:
         node-version: '10.x'
     - name: Install dependencies
-      run: npm install
+      run: npm install Web.Vue3
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
