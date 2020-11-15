@@ -1,5 +1,5 @@
 {
-  "scripts": {
-    "postinstall": "cd Web.Vue3 && npm install && npm run dev"
-  }
+  //"scripts": {
+  //  "postinstall": "cd Web.Vue3 && npm install && npm run dev"
+  //}
 }
