@@ -1,4 +1,4 @@
-![build](https://github.com/scalise/StockPortfolio/workflows/build/badge.svg)
+![build](https://github.com/scalise/StockPortfolio/workflows/build/badge.svg?branch=develop)
 
 # TODO
 
