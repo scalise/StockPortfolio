@@ -28,7 +28,11 @@ namespace StockPortfolio.Services
             // look up by username
             var resp = new PorfolioSummaryBalanceHistoryResponse() { 
                 BalanceData = new List<BalanceDataPoint>() 
-                { 
+                {
+                    new BalanceDataPoint() { BalanceDate = DateTime.Now.AddDays(-8), Balance = 100000.00 },
+                    new BalanceDataPoint() { BalanceDate = DateTime.Now.AddDays(-7), Balance = 323000.00 },
+                    new BalanceDataPoint() { BalanceDate = DateTime.Now.AddDays(-6), Balance = 98000.00 },
+                    new BalanceDataPoint() { BalanceDate = DateTime.Now.AddDays(-5), Balance = 99000.00 },
                     new BalanceDataPoint() { BalanceDate = DateTime.Now.AddDays(-4), Balance = 100000.00 },
                     new BalanceDataPoint() { BalanceDate = DateTime.Now.AddDays(-3), Balance = 110000.00 },
                     new BalanceDataPoint() { BalanceDate = DateTime.Now.AddDays(-2), Balance = 120000.00 },

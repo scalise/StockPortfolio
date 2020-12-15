@@ -1,3 +1,4 @@
 export interface RootState {
-  version: string;
+    version: string;
+    urlBase: string;
 }

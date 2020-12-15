@@ -19,7 +19,7 @@
         components: {
             PortfolioSummary,
             BalanceSnapshot,
-            BalanceHistory
+            BalanceHistory,
         },
     })
     export default class Summary extends Vue { }

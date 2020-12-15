@@ -14,15 +14,25 @@
     </v-row>
 </template>
 <script>
+    import axios from 'axios';
+
     export default {
         name: 'BalanceSnapshot',
+        mounted() {
+            axios.get('http://localhost:7071/api/portfolio/XXXXXXXXX/summary').then(resp => {
+                this.item.balance = resp.data.balance;
+                this.item.netChgVal = resp.data.todaysNetChangeValue;
+                this.item.netChgPct = resp.data.todaysNetChangePercent;
+            });
+        },
+       
         data() {
             return {
                 item: 
                     {
-                        balance: 12345.67,
-                        netChgVal: 12.34,
-                        netChgPct: 0.89
+                        balance: 0.0,
+                        netChgVal: 0.0,
+                        netChgPct: 0.0
                     }                
             }
         }

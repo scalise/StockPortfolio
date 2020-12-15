@@ -24,21 +24,33 @@
 </v-row>
 </template>
 <script>
+    import axios from 'axios';
+
     export default {
-        name: 'PortfolioSummary',        
+        name: 'PortfolioSummary',
+        mounted() {
+            const summaryUrl = 'http://' + this.$store.state.urlBase + '/api/portfolio/XXXXXXXXX/summary';
+            axios.get(summaryUrl).then((resp) => {
+                this.items = [];
+
+                const titleKey = 'title';
+                const amountKey = 'amount'; 
+
+                const obj1 = {};
+                obj1[titleKey] = 'Total Cash'; 
+                obj1[amountKey] = resp.data.totalCash;
+                this.items.push(obj1);
+                
+                const obj2 = {};
+                obj2[titleKey] = 'Total Positions';
+                obj2[amountKey] = resp.data.positions;
+                this.items.push(obj2);
+            });
+        },
         data() {
             return {
-                items: [                    
-                    {
-                        title: 'Total Cash',                        
-                        amount: 6465.73
-                    },                    
-                    {
-                        title: 'Total Positions',                        
-                        amount: 123.45
-                    }
-                ]
-            }
+                items: []
+            };
         }
-    }
+    };
 </script>

@@ -25,7 +25,7 @@ namespace StockPortfolio.Services
                 return new BadRequestResult();
 
             // look up by username
-            var resp = new PorfolioSummaryResponse() { Balance = 123456.78, TodaysNetChangeValue = 100.00, TodaysNetChangePercent = 3.5, TotalCash = 100.00, Positions = 123356.78 };
+            var resp = new PorfolioSummaryResponse() { Balance = 123456.78, TodaysNetChangeValue = 100.00, TodaysNetChangePercent = 3.5, TotalCash = 100.00, Positions = 1236.78 };
             return new OkObjectResult(resp);
         }
     }
