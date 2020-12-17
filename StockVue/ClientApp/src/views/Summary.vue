@@ -22,5 +22,17 @@
             BalanceHistory,
         },
     })
-    export default class Summary extends Vue { }
+    export default class Summary extends Vue {
+        async mounted() {
+            console.log("mounted");
+            if (isNaN(this.$store.state.summary.balance)) {
+                this.fetchData()
+            }
+        }
+
+        public fetchData(): void {
+            this.$store.dispatch("loadSummaryData");
+        }
+    }
+    
 </script>

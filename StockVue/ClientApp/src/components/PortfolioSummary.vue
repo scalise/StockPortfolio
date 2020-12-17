@@ -3,21 +3,25 @@
         <v-col lg="12" md="12">
             <v-card>
                 <v-list>
-                    <template v-for="(item, index) in summary">
+                    <v-list-item>
+                        <v-list-item-content>
+                            <v-list-item-title>Total Cash</v-list-item-title>
+                        </v-list-item-content>
+                        <v-list-item-action>
+                            <v-list-item-title v-if="item" v-html="`<span>$</span>${item.totalCash}`"></v-list-item-title>
+                        </v-list-item-action>
+                    </v-list-item>
 
-                        <v-list-item :key="item.title"
-                                     @click="">
+                    <v-list-item>
+                        <v-list-item-content>
+                            <v-list-item-title>Total Positions</v-list-item-title>
+                        </v-list-item-content>
+                        <v-list-item-action>
+                            <v-list-item-title v-if="item" v-html="`<span>$</span>${item.totalPositions}`"></v-list-item-title>
+                        </v-list-item-action>
+                    </v-list-item>
 
-                            <v-list-item-content>
-                                <v-list-item-title v-html="item.title"></v-list-item-title>
-                            </v-list-item-content>
 
-                            <v-list-item-action>
-                                <v-list-item-title v-html="`<span>$</span>${item.amount}`"></v-list-item-title>
-                            </v-list-item-action>
-
-                        </v-list-item>
-                    </template>
                 </v-list>
             </v-card>
         </v-col>
@@ -27,30 +31,13 @@
 
     export default {
         name: 'PortfolioSummary',        
-        async mounted() {
-            this.$store.dispatch("loadSummaryData");
-        },
-        computed: {            
-            summary() {
-                let items = [];
+        computed: {
+            item() {                                
+                if (isNaN(this.$store.state.summary.balance))
+                    return null;
 
-                let data = this.$store.state.summary;
-                if (data) {
-                    const titleKey = 'title';
-                    const amountKey = 'amount';
-
-                    const obj1 = {};
-                    obj1[titleKey] = 'Total Cash';
-                    obj1[amountKey] = data.totalCash;
-                    items.push(obj1);
-
-                    const obj2 = {};
-                    obj2[titleKey] = 'Total Positions';
-                    obj2[amountKey] = data.totalPositions;
-                    items.push(obj2);
-                }
-                return items;
+                return this.$store.state.summary;
             }
-        },
+        },        
     };
 </script>
