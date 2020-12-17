@@ -1,9 +1,9 @@
 ﻿<template>
     <v-row>
         <v-col lg="12" md="12">
-            <v-card>               
+            <v-card>
                 <v-list>
-                    <template v-for="(item, index) in items">
+                    <template v-for="(item, index) in summary">
 
                         <v-list-item :key="item.title"
                                      @click="">
@@ -21,36 +21,36 @@
                 </v-list>
             </v-card>
         </v-col>
-</v-row>
+    </v-row>
 </template>
 <script>
-    import axios from 'axios';
 
     export default {
-        name: 'PortfolioSummary',
-        mounted() {
-            const summaryUrl = 'http://' + this.$store.state.urlBase + '/api/portfolio/XXXXXXXXX/summary';
-            axios.get(summaryUrl).then((resp) => {
-                this.items = [];
-
-                const titleKey = 'title';
-                const amountKey = 'amount'; 
-
-                const obj1 = {};
-                obj1[titleKey] = 'Total Cash'; 
-                obj1[amountKey] = resp.data.totalCash;
-                this.items.push(obj1);
-                
-                const obj2 = {};
-                obj2[titleKey] = 'Total Positions';
-                obj2[amountKey] = resp.data.positions;
-                this.items.push(obj2);
-            });
+        name: 'PortfolioSummary',        
+        async mounted() {
+            this.$store.dispatch("loadSummaryData");
         },
-        data() {
-            return {
-                items: []
-            };
-        }
+        computed: {            
+            summary() {
+                let items = [];
+
+                let data = this.$store.state.summary;
+                if (data) {
+                    const titleKey = 'title';
+                    const amountKey = 'amount';
+
+                    const obj1 = {};
+                    obj1[titleKey] = 'Total Cash';
+                    obj1[amountKey] = data.totalCash;
+                    items.push(obj1);
+
+                    const obj2 = {};
+                    obj2[titleKey] = 'Total Positions';
+                    obj2[amountKey] = data.totalPositions;
+                    items.push(obj2);
+                }
+                return items;
+            }
+        },
     };
 </script>

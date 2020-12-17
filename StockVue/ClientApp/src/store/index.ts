@@ -1,5 +1,7 @@
 import Vue from 'vue';
 import Vuex, { StoreOptions } from 'vuex';
+import { actions } from './actions';
+import { mutations } from './mutations';
 import { RootState } from './types';
 import { counter } from './counter/index';
 
@@ -9,12 +11,15 @@ Vue.use(Vuex);
 
 const store: StoreOptions<RootState> = {
     state: {
-      urlBase: 'localhost:7071', // where to get the data
-      version: '1.0.0', // a simple property
-  },
-  modules: {
-      counter,
-  },
+        urlBase: 'localhost:7071', // where to get the data
+        version: '1.0.0', // a simple property        
+        summary: { balance: NaN, totalCash: 0, totalPositions: 0, todaysNetChangePercent: 0, todaysNetChangeValue: 0 }
+    },
+    actions,
+    mutations,
+    modules: {
+        counter,
+    },
 };
 
 export default new Vuex.Store<RootState>(store);
