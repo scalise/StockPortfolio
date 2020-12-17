@@ -10,5 +10,13 @@ export const actions: ActionTree<RootState, RootState> = {
         }).catch(error => {
             throw new Error(`API ${error}`);
         });
-  },  
+    },  
+    loadHistoryData({ commit }): any {       
+        const historyUrl = 'http://' + this.state.urlBase + '/api/portfolio/XXXXXXXXX/balancehistory';
+        axios.get(historyUrl).then(resp => {
+            commit('loadHistoryData', resp.data);
+        }).catch(error => {
+            throw new Error(`API ${error}`);
+        });                
+    },
 };

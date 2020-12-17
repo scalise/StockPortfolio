@@ -1,6 +1,6 @@
 ﻿<template>
     <div class="container">
-        <LineChart v-if="loaded"
+        <LineChart v-if="isLoaded"
                     :chart-data="data"
                     :chart-labels="labels"
                     :options="options" />
@@ -16,28 +16,22 @@
         components: { LineChart },
         props: {},
         data() {
-            return {
-                loaded: false,                
-                options: null,
-                data: [],
-                labels: []
+            return {                
+                options: null,                
             }
-        },
-        async mounted() {
-            this.loaded = false
-            try {                
-
-                axios.get('http://localhost:7071/api/portfolio/XXXXXXXXX/balancehistory').then(resp => {
-
-                    this.data = resp.data.balanceData.map(x => x.balance);
-                    this.labels = resp.data.balanceData.map(x => x.balanceDate);
-
-                    this.loaded = true
-                });
-
-            } catch (e) {
-                console.error(e)
+        },        
+        computed: {
+            data() {
+                return this.$store.state.history.data;
+            },
+            labels() {
+                return this.$store.state.history.labels;
+            },
+            isLoaded() {
+                return this.$store.state.history.data.length > 0;
             }
         }
+
+
     }
 </script>

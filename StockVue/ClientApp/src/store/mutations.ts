@@ -16,5 +16,9 @@ export const mutations: MutationTree<RootState> = {
             
         state.summary = parsedSummaryData;                  
     },
+    loadHistoryData(state, historyData) {
+        state.history.data = historyData.balanceData.map((x: { balance: any; }) => x.balance);
+        state.history.labels = historyData.balanceData.map((x: { balanceDate: any; }) => x.balanceDate);
+    }
     
 };

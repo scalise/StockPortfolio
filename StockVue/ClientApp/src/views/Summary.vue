@@ -28,10 +28,17 @@
             if (isNaN(this.$store.state.summary.balance)) {
                 this.fetchData()
             }
+            if (this.$store.state.history.data.length == 0) {
+                this.fetchHistoryData()
+            }
         }
 
         public fetchData(): void {
             this.$store.dispatch("loadSummaryData");
+        }
+
+        public fetchHistoryData(): void {
+            this.$store.dispatch("loadHistoryData");
         }
     }
     
