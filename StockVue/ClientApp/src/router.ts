@@ -19,6 +19,11 @@ export default new Router({
             component: () => import(/* webpackChunkName: "counter" */ './views/Summary.vue'),
         },
         {
+            path: '/positions',
+            name: 'positions',
+            component: () => import(/* webpackChunkName: "counter" */ './views/Positions.vue'),
+        },
+        {
             path: '/counter',
             name: 'counter',
             // route level code-splitting
