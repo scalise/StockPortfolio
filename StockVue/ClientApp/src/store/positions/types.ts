@@ -3,7 +3,10 @@ export interface Position {
     ticker: string;
     numberOfShares: number;
     currentPrice: number;
-    AvgPrice: number;
+    avgPrice: number;
+    marketValue: number;
+    gainValue: number;
+    gainPct: number;
 }
 
 export interface PositionsState {
