@@ -5,6 +5,7 @@ import { getters } from './getters';
 import { mutations } from './mutations';
 import { RootState } from './types';
 import { counter } from './counter/index';
+import { positions } from './positions/index';
 
 Vue.use(Vuex);
 
@@ -22,6 +23,7 @@ const store: StoreOptions<RootState> = {
     mutations,
     modules: {
         counter,
+        positions,
     },
 };
 
