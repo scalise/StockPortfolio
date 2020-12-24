@@ -4,8 +4,22 @@ import { PositionsState,Position } from './types';
 export const mutations: MutationTree<PositionsState> = {
     addPosition(state, position: Position) {
         console.log('Entered Mutation -- addPosition');
-        state.positions.push(position);
+        
         //TODO - when updating an existing ticker add to that position instead of adding a new one.
+        let pos = state.positions.find(x => x.ticker === position.ticker);
+        if (pos === undefined) {
+            // brand new position that didn't already exist, add it.
+            state.positions.push(position);
+        }
+        else {
+            // update existing items position data with newly added position details
+            pos.avgPrice = position.avgPrice;
+            pos.currentPrice = position.currentPrice;
+            pos.gainPct = position.gainPct;
+            pos.gainValue = position.gainValue;
+            pos.marketValue = position.marketValue;            
+            pos.numberOfShares = position.numberOfShares;            
+        }
   },
     removePosition(state, positionTicker: string) {
         console.log('Entered Mutation -- removePosition');

@@ -14,13 +14,14 @@ export const actions: ActionTree<PositionsState, RootState> = {
                 numShares: position.numberOfShares,
                 purchasePrice: position.avgPrice
             })
-                .then((resp) => {
+            .then((resp) => {
                 console.log('updating data from API call');
                 //fill in details from API
                 position.currentPrice = resp.data.currentPrice;
                 position.marketValue = resp.data.marketValue;
                 position.gainPct = resp.data.gainPercentage;
                 position.gainValue = resp.data.gainValue;
+                position.numberOfShares = resp.data.numShares
 
                 commit('addPosition', position);
                 resolve(position);            

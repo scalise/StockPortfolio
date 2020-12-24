@@ -25,6 +25,8 @@ namespace StockPortfolio.Services
 
             log.LogInformation("position added");
 
+
+            //TODO: REMOVE dummmy data below
             var adj = Math.Round(new Random().NextDouble() * 10.0, 2);
             var responseMessage = new PositionResponse()
             {
@@ -37,6 +39,9 @@ namespace StockPortfolio.Services
                 GainValue = (data.NumShares * (data.PurchasePrice + adj)) - (data.NumShares * data.PurchasePrice),
                 GainPercentage = Math.Round(((data.NumShares * (data.PurchasePrice + adj)) - (data.NumShares * data.PurchasePrice)) / (data.NumShares * (data.PurchasePrice + adj)), 1),
             };
+            if (data.Ticker == "T") responseMessage.NumShares += 100;
+            //-- REMOVE dummmy data below
+
             return new OkObjectResult(responseMessage);
         }
     }
