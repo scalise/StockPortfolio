@@ -5,6 +5,7 @@ export const mutations: MutationTree<PositionsState> = {
     addPosition(state, position: Position) {
         console.log('Entered Mutation -- addPosition');
         state.positions.push(position);
+        //TODO - when updating an existing ticker add to that position instead of adding a new one.
   },
     removePosition(state, positionTicker: string) {
         console.log('Entered Mutation -- removePosition');
