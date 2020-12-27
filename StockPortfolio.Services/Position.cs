@@ -12,11 +12,11 @@ namespace StockPortfolio.Services
 {
     public static class Position
     {
-        [FunctionName("Position")]
-        public static async Task<IActionResult> Run(
+        [FunctionName("AddPosition")]
+        public static async Task<IActionResult> AddPosition(
             [HttpTrigger(AuthorizationLevel.Function, "post", Route = "portfolio/{portfolio}/position")] HttpRequest req,
-            ILogger log)
-        {               
+             ILogger log)
+        {
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             var data = JsonConvert.DeserializeObject<PositionRequest>(requestBody);
@@ -24,8 +24,6 @@ namespace StockPortfolio.Services
             //TODO: Do something with the data
 
             log.LogInformation("position added");
-
-
             //TODO: REMOVE dummmy data below
             var adj = Math.Round(new Random().NextDouble() * 10.0, 2);
             var responseMessage = new PositionResponse()
@@ -34,10 +32,41 @@ namespace StockPortfolio.Services
                 Name = data.Name,
                 NumShares = data.NumShares,
                 AvgPurchasePrice = data.PurchasePrice,
-                CurrentPrice = data.PurchasePrice + adj,
-                MarketValue = data.NumShares * (data.PurchasePrice + adj),
-                GainValue = (data.NumShares * (data.PurchasePrice + adj)) - (data.NumShares * data.PurchasePrice),
-                GainPercentage = Math.Round(((data.NumShares * (data.PurchasePrice + adj)) - (data.NumShares * data.PurchasePrice)) / (data.NumShares * (data.PurchasePrice + adj)), 1),
+                CurrentPrice = Math.Round(data.PurchasePrice + adj, 2),
+                MarketValue = Math.Round(data.NumShares * (data.PurchasePrice + adj), 2),
+                GainValue = Math.Round((data.NumShares * (data.PurchasePrice + adj)) - (data.NumShares * data.PurchasePrice), 2),
+                GainPercentage = Math.Round(((data.NumShares * (data.PurchasePrice + adj)) - (data.NumShares * data.PurchasePrice)) / (data.NumShares * data.PurchasePrice) * 100.0, 1),
+            };
+            if (data.Ticker == "T") responseMessage.NumShares += 100;
+            //-- REMOVE dummmy data below
+
+            return new OkObjectResult(responseMessage);
+        }
+
+        [FunctionName("UpdatePosition")]
+        public static async Task<IActionResult> UpdatePosition(
+           [HttpTrigger(AuthorizationLevel.Function, "put", Route = "portfolio/{portfolio}/position/{ticker}")] HttpRequest req,
+            ILogger log, string ticker)
+        {
+
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var data = JsonConvert.DeserializeObject<PositionRequest>(requestBody);
+
+            //TODO: Do something with the data
+
+            log.LogInformation("position updated");
+            //TODO: REMOVE dummmy data below
+            var adj = Math.Round(new Random().NextDouble() * 10.0, 2);
+            var responseMessage = new PositionResponse()
+            {
+                Ticker = ticker,
+                Name = data.Name,
+                NumShares = data.NumShares,
+                AvgPurchasePrice = data.PurchasePrice,
+                CurrentPrice = Math.Round(data.PurchasePrice + adj, 2),
+                MarketValue = Math.Round(data.NumShares * (data.PurchasePrice + adj), 2),
+                GainValue = Math.Round((data.NumShares * (data.PurchasePrice + adj)) - (data.NumShares * data.PurchasePrice), 2),
+                GainPercentage = Math.Round(((data.NumShares * (data.PurchasePrice + adj)) - (data.NumShares * data.PurchasePrice)) / (data.NumShares * data.PurchasePrice) * 100.0, 1),
             };
             if (data.Ticker == "T") responseMessage.NumShares += 100;
             //-- REMOVE dummmy data below

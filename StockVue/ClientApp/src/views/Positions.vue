@@ -5,11 +5,11 @@
                 <h1>Positions {{ positions.length }}</h1>
             </v-col>
             <v-col cols="3">
-                <AddPosition @positionInfo="getNewPositionData($event)"></AddPosition>
+                <AddPosition @positionInfo="addNewPositionData($event)"></AddPosition>
             </v-col>
         </v-row>
         <v-row>
-            <StockPositions :items="positions" />
+            <StockPositions :items="positions" v-on:updatedPosition="updatedPosition($event)" v-on:addedPosition="addedPosition($event)" />
         </v-row>
 </v-container>
 </template>
@@ -28,28 +28,36 @@
     })
     export default class Positions extends Vue {
 
-        public addedPosition: Object = {}
-
         public positions: Object[] = [];
 
         async mounted() {
             console.log("mounted");
             if (this.$store.getters['positions/positionCount'] == 0) {
-                this.fetchData();
-                this.positions = this.$store.getters['positions/getAll'];
+                this.fetchData();                
             }
+            this.positions = this.$store.getters['positions/getAll'];
         }
 
         public fetchData(): void {
             this.$store.dispatch("positions/loadStockPositions");
         }
 
-        public getNewPositionData(value: Object): void {
+        public addNewPositionData(value: Object): void {
             console.log(value);
 
             this.$store.dispatch("positions/addPosition", value);
 
             //TODO: Call action for new position creation and then use promise to make API call to get latest and refresh.
+        }
+
+
+        public addedPosition(data): void {
+            console.log('added position');
+        }
+
+        public updatedPosition(data: Position): void {
+            console.log('updated position'); 
+            this.$store.dispatch("positions/updatePosition", data);
         }
     }
 

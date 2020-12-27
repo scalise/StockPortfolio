@@ -1,10 +1,10 @@
 import { MutationTree } from 'vuex';
-import { PositionsState,Position } from './types';
+import { PositionsState, Position } from './types';
 
 export const mutations: MutationTree<PositionsState> = {
-    addPosition(state, position: Position) {
-        console.log('Entered Mutation -- addPosition');
-        
+    addOrUpdatePosition(state, position: Position) {
+        console.log('Entered Mutation -- addOrUpdatePosition');
+
         //TODO - when updating an existing ticker add to that position instead of adding a new one.
         let pos = state.positions.find(x => x.ticker === position.ticker);
         if (pos === undefined) {
@@ -17,15 +17,15 @@ export const mutations: MutationTree<PositionsState> = {
             pos.currentPrice = position.currentPrice;
             pos.gainPct = position.gainPct;
             pos.gainValue = position.gainValue;
-            pos.marketValue = position.marketValue;            
-            pos.numberOfShares = position.numberOfShares;            
+            pos.marketValue = position.marketValue;
+            pos.numberOfShares = position.numberOfShares;
         }
-  },
+    },
     removePosition(state, positionTicker: string) {
         console.log('Entered Mutation -- removePosition');
         state.positions = state.positions.filter(p => p.ticker !== positionTicker);
     },
-    loadStockPositions(state, positionsData) {        
+    loadStockPositions(state, positionsData) {
         //TODO: Dummy data. replace this with the actual data
         console.log('Entered Mutation -- loadStockPositions');
         state.positions = [

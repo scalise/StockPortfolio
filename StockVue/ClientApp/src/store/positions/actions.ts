@@ -23,7 +23,7 @@ export const actions: ActionTree<PositionsState, RootState> = {
                 position.gainValue = resp.data.gainValue;
                 position.numberOfShares = resp.data.numShares
 
-                commit('addPosition', position);
+                commit('addOrUpdatePosition', position);
                 resolve(position);            
             })
             .catch(error => {
@@ -31,7 +31,37 @@ export const actions: ActionTree<PositionsState, RootState> = {
             });
         });        
     },
+    updatePosition({ commit }, position: Position): any {
+        console.log('update position');
+        const positionUrl = 'http://' + this.state.urlBase + '/api/portfolio/XXXXXXXXX/position/' + position.ticker;
+
+        return new Promise((resolve, reject) => {
+            axios.put(positionUrl, {
+                ticker: position.ticker,
+                name: position.name,
+                numShares: position.numberOfShares,
+                purchasePrice: position.avgPrice
+            })
+            .then((resp) => {
+                console.log('updating data from API call');
+                //fill in details from API
+                position.currentPrice = resp.data.currentPrice;
+                position.marketValue = resp.data.marketValue;
+                position.gainPct = resp.data.gainPercentage;
+                position.gainValue = resp.data.gainValue;
+                position.numberOfShares = resp.data.numShares
+
+                commit('addOrUpdatePosition', position);
+                resolve(position);
+            })
+            .catch(error => {
+                reject(error);
+            });
+        });
+    },
     removePosition({ commit }, positionTicker: string): any {
+        // TODO: Call API to remove position
+
         commit('removePosition', positionTicker);
     },
     loadStockPositions({ commit }) {        
