@@ -73,6 +73,22 @@ namespace StockPortfolio.Services
 
             return new OkObjectResult(responseMessage);
         }
+
+        [FunctionName("DeletePosition")]
+        public static async Task<IActionResult> DeletePosition(
+           [HttpTrigger(AuthorizationLevel.Function, "delete", Route = "portfolio/{portfolio}/position/{ticker}")] HttpRequest req,
+            ILogger log, string ticker)
+        {
+
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var data = JsonConvert.DeserializeObject<PositionRequest>(requestBody);
+
+            //TODO: Do something with the data
+
+            log.LogInformation("position deleted");
+            
+            return new OkResult();
+        }
     }
 
     public class PositionRequest

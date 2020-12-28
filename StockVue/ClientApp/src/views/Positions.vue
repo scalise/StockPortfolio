@@ -9,7 +9,11 @@
             </v-col>
         </v-row>
         <v-row>
-            <StockPositions :items="positions" v-on:updatedPosition="updatedPosition($event)" v-on:addedPosition="addedPosition($event)" />
+            <StockPositions 
+                    :items="positions" 
+                    v-on:updatedPosition="updatedPosition($event)" 
+                    v-on:deletedPosition="deletedPosition($event)" 
+                    v-on:addedPosition="addedPosition($event)" />
         </v-row>
 </v-container>
 </template>
@@ -58,6 +62,11 @@
         public updatedPosition(data: Position): void {
             console.log('updated position'); 
             this.$store.dispatch("positions/updatePosition", data);
+        }
+
+        public deletedPosition(data: Position): void {
+            console.log('deleted position');
+            this.$store.dispatch("positions/removePosition", data);
         }
     }
 

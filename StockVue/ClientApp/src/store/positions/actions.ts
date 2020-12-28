@@ -59,10 +59,20 @@ export const actions: ActionTree<PositionsState, RootState> = {
             });
         });
     },
-    removePosition({ commit }, positionTicker: string): any {
-        // TODO: Call API to remove position
+    removePosition({ commit }, position: Position): any {        
+        console.log('remove position');
+        const positionUrl = 'http://' + this.state.urlBase + '/api/portfolio/XXXXXXXXX/position/' + position.ticker;
 
-        commit('removePosition', positionTicker);
+        return new Promise((resolve, reject) => {
+            axios.delete(positionUrl)
+                .then((resp) => {                    
+                    commit('removePosition', position.ticker);
+                    resolve(position);
+                })
+                .catch(error => {
+                    reject(error);
+                });
+        });        
     },
     loadStockPositions({ commit }) {        
         console.log('Entered loadStockPositions');

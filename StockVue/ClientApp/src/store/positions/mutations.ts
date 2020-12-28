@@ -3,7 +3,7 @@ import { PositionsState, Position } from './types';
 
 export const mutations: MutationTree<PositionsState> = {
     addOrUpdatePosition(state, position: Position) {
-        console.log('Entered Mutation -- addOrUpdatePosition');
+        console.log('addOrUpdatePosition');
 
         //TODO - when updating an existing ticker add to that position instead of adding a new one.
         let pos = state.positions.find(x => x.ticker === position.ticker);
@@ -21,13 +21,17 @@ export const mutations: MutationTree<PositionsState> = {
             pos.numberOfShares = position.numberOfShares;
         }
     },
+    //Finds the position by ticker symbol and removes it from state
     removePosition(state, positionTicker: string) {
-        console.log('Entered Mutation -- removePosition');
-        state.positions = state.positions.filter(p => p.ticker !== positionTicker);
+        console.log('removePosition');        
+        let index = state.positions.findIndex(x => x.ticker == positionTicker);
+        if (index != -1) {
+            state.positions.splice(index, 1);
+        }        
     },
     loadStockPositions(state, positionsData) {
         //TODO: Dummy data. replace this with the actual data
-        console.log('Entered Mutation -- loadStockPositions');
+        console.log('loadStockPositions');
         state.positions = [
             { ticker: 'T', name: 'AT&T', numberOfShares: 100, currentPrice: 29.85, avgPrice: 25.52, marketValue: 1000.00, gainValue: -120.00, gainPct: -1.20 },
             { ticker: 'INTC', name: 'Intel', numberOfShares: 200, currentPrice: 41.12, avgPrice: 43.54, marketValue: 1000.00, gainValue: 0.00, gainPct: 0.00 },

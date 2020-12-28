@@ -137,8 +137,7 @@
             }
         },
         methods: {
-            getColor(gainValue) {
-                console.log('x');
+            getColor(gainValue) {                
                 if (gainValue < 0) return 'red'
                 else if (gainValue > 0) return 'green'
                 else return 'black'
@@ -172,8 +171,9 @@
             },
 
             deleteItemConfirm() {
-                this.items.splice(this.editedIndex, 1);
-                this.$store.dispatch("positions/removePosition", this.editedItem.ticker);
+                //this.items.splice(this.editedIndex, 1);
+                //this.$store.dispatch("positions/removePosition", this.editedItem.ticker);
+                this.$emit('deletedPosition', this.editedItem);
                 this.closeDelete()
             },
             closeDelete() {
