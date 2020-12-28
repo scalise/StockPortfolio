@@ -80,8 +80,9 @@
                 this.model = {}
             },
             submit() {
+                console.log('submit');
                 this.dialog = false;
-                this.$emit('positionInfo', this.model)
+                this.$emit('addedPosition', this.model)
                 this.model = {}
             }
         }
