@@ -7,16 +7,31 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 
 namespace StockPortfolio.Services
 {
-    public static class Test
+    public interface ITest
     {
+        Task<IActionResult> Run(
+            [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
+            ILogger log);
+    }
+
+    public class Test : ITest
+    {
+        private IOptions<MyConfiguration> _config;
+
+        public Test(IOptions<MyConfiguration> config)
+        {
+            _config = config;
+        }
+
         [FunctionName("Test")]
-        public static async Task<IActionResult> Run(
+        public async Task<IActionResult> Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", "post", Route = null)] HttpRequest req,
             ILogger log)
-        {
+        { 
             log.LogInformation("C# HTTP trigger function processed a request.");
 
             string name = req.Query["name"];
