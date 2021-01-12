@@ -30,14 +30,14 @@
 <script>
 
     export default {
-        name: 'PortfolioSummary',        
+        name: 'PortfolioSummary',
         computed: {
-            item() {                                
-                if (isNaN(this.$store.state.summary.balance))
+            item() {
+                if (isNaN(this.$store.state.summary.balance)) {
                     return null;
-
+                }
                 return this.$store.state.summary;
-            }
-        },        
+            },
+        },
     };
 </script>

@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts">
-    import HelloWorld from '@/components/HelloWorld.vue';    
+    import HelloWorld from '@/components/HelloWorld.vue';
     import PortfolioSummary from '@/components/PortfolioSummary.vue';
     import { Component, Vue } from 'vue-property-decorator';
 
@@ -50,11 +50,12 @@
         private drawer: boolean = true;
         private miniVariant: boolean = false;
         private right: boolean = true;
-        private title: string = 'Stock Vue';
+        private title: string = 'Stock Portfolio';
         private items = [
             { title: 'Home', icon: 'home', link: '/' },
             { title: 'Summary', icon: 'home', link: '/summary' },
             { title: 'Positions', icon: 'home', link: '/positions' },
+            //{ title: 'Research', icon: 'home', link: '/research' },
             { title: 'Counter', icon: 'touch_app', link: '/counter' },
             { title: 'Fetch data', icon: 'get_app', link: '/fetch-data' },
         ];

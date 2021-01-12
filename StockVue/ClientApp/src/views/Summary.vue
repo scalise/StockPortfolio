@@ -11,7 +11,7 @@
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import PortfolioSummary from '@/components/PortfolioSummary.vue'; // @ is an alias to /src
+    import PortfolioSummary from '@/components/PortfolioSummary.vue';
     import BalanceSnapshot from '@/components/BalanceSnapshot.vue';
     import BalanceHistory from '@/components/BalanceHistory.vue';
 
@@ -23,22 +23,21 @@
         },
     })
     export default class Summary extends Vue {
-        async mounted() {
-            console.log("mounted");
+        public async mounted() {
             if (isNaN(this.$store.state.summary.balance)) {
-                this.fetchData()
+                this.fetchData();
             }
-            if (this.$store.state.history.data.length == 0) {
-                this.fetchHistoryData()
+            if (this.$store.state.history.data.length === 0) {
+                this.fetchHistoryData();
             }
         }
 
         public fetchData(): void {
-            this.$store.dispatch("loadSummaryData");
+            this.$store.dispatch('loadSummaryData');
         }
 
         public fetchHistoryData(): void {
-            this.$store.dispatch("loadHistoryData");
+            this.$store.dispatch('loadHistoryData');
         }
     }
     

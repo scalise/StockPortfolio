@@ -6,6 +6,11 @@
                               :items="items"
                               :items-per-page="10"
                               class="elevation-1">
+                    
+                    <template v-slot:item.ticker="{ item }">
+                        <a href="#">{{ item.ticker }}</a>
+                    </template>
+
                     <!--  EXAMPLE: customizing grid (color for gain) for single column -->
                     <template v-slot:item.gainValue="{ item }">
                         <v-chip :color="getColor(item.gainValue)" dark>{{ item.gainValue }}</v-chip>
@@ -103,8 +108,8 @@
         name: 'StockPositions',
         props: {
             items: {
-                type: Array
-            }
+                type: Array,
+            },
         },
         data() {
             return {
@@ -124,7 +129,7 @@
                 },
                 editedIndex: -1,
                 headers: [
-                    { text: 'Name', align: 'start', sortable: false, value: 'name', },
+                    { text: 'Name', align: 'start', sortable: false, value: 'name' },
                     { text: 'Symbol', value: 'ticker' },
                     { text: 'Shares', value: 'numberOfShares' },
                     { text: 'Price', value: 'currentPrice' },
@@ -132,66 +137,66 @@
                     { text: 'Market Value', value: 'marketValue' },
                     { text: 'Gain ($)', value: 'gainValue' },
                     { text: 'Gain (%)', value: 'gainPct' },
-                    { text: 'Actions', value: 'actions'},
+                    { text: 'Actions', value: 'actions' },
                 ],
-            }
+            };
         },
         methods: {
-            getColor(gainValue) {                
-                if (gainValue < 0) return 'red'
-                else if (gainValue > 0) return 'green'
-                else return 'black'
+            getColor(gainValue) {
+                if (gainValue < 0) {
+                    return 'red';
+                } else if (gainValue > 0) {
+                    return 'green';
+                } else {
+                    return 'black';
+                }
             },
             editItem(item) {
-                console.log('edit item');
-                this.editedIndex = this.items.indexOf(item)
-                this.editedItem = Object.assign({}, item)
-                this.dialog = true
+                this.editedIndex = this.items.indexOf(item);
+                this.editedItem = Object.assign({}, item);
+                this.dialog = true;
             },
             close() {
-                // Use onTick to clear out the edited information being tracked, after the window has closed and the DOM updated.
-                this.dialog = false
+                // Use onTick to clear out the edited information being
+                // tracked, after the window has closed and the DOM updated.
+                this.dialog = false;
                 this.$nextTick(() => {
-                    this.editedItem = Object.assign({}, this.defaultItem)
-                    this.editedIndex = -1
-                })
+                    this.editedItem = Object.assign({}, this.defaultItem);
+                    this.editedIndex = -1;
+                });
             },
             save() {
-                if (this.editedIndex > -1) {                    
+                if (this.editedIndex > -1) {
                     this.$emit('updatedPosition', this.editedItem);
-                } else {                    
+                } else {
                     this.$emit('addedPosition', this.editedItem);
                 }
-                this.close()
-            },        
-            deleteItem(item) {
-                this.editedIndex = this.items.indexOf(item)
-                this.editedItem = Object.assign({}, item)
-                this.dialogDelete = true
+                this.close();
             },
-
+            deleteItem(item) {
+                this.editedIndex = this.items.indexOf(item);
+                this.editedItem = Object.assign({}, item);
+                this.dialogDelete = true;
+            },
             deleteItemConfirm() {
-                //this.items.splice(this.editedIndex, 1);
-                //this.$store.dispatch("positions/removePosition", this.editedItem.ticker);
                 this.$emit('deletedPosition', this.editedItem);
-                this.closeDelete()
+                this.closeDelete();
             },
             closeDelete() {
-                this.dialogDelete = false
+                this.dialogDelete = false;
                 this.$nextTick(() => {
-                    this.editedItem = Object.assign({}, this.defaultItem)
-                    this.editedIndex = -1
-                })
+                    this.editedItem = Object.assign({}, this.defaultItem);
+                    this.editedIndex = -1;
+                });
             },
-
         },
         watch: {
             dialog(val) {
-                val || this.close()
+                val || this.close();
             },
             dialogDelete(val) {
-                val || this.closeDelete()
+                val || this.closeDelete();
             },
-        }
+        },
     };
 </script>

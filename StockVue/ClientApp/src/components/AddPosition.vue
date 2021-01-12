@@ -67,24 +67,24 @@
 </template>
 <script>
     export default {
-        name: 'AddPosition',        
+        name: 'AddPosition',
         data() {
             return {
                 dialog: false,
                 model: {},
-            }
+            };
         },
         methods: {
             close() {
                 this.dialog = false;
-                this.model = {}
+                this.model = {};
             },
             submit() {
-                console.log('submit');
+
                 this.dialog = false;
-                this.$emit('addedPosition', this.model)
-                this.model = {}
-            }
-        }
-  }
+                this.$emit('addedPosition', this.model);
+                this.model = {};
+            },
+        },
+    };
 </script>

@@ -8,5 +8,5 @@ export const getters: GetterTree<PositionsState, RootState> = {
     },
     getAll(state): any {
         return state.positions;
-    }
+    },
 };

@@ -23,6 +23,11 @@ export default new Router({
             name: 'positions',
             component: () => import(/* webpackChunkName: "counter" */ './views/Positions.vue'),
         },
+        //{
+        //    path: '/research',
+        //    name: 'research',
+        //    component: () => import(/* webpackChunkName: "counter" */ './views/Research.vue'),
+        //},
         {
             path: '/counter',
             name: 'counter',

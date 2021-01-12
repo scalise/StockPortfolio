@@ -8,18 +8,17 @@
 </template>
 
 <script>
-    import LineChart from '@/components/LineChart.vue'
-    import axios from 'axios';
-
+    import LineChart from '@/components/LineChart.vue';
+    
     export default {
         name: 'BalanceHistory',
         components: { LineChart },
         props: {},
         data() {
-            return {                
-                options: null,                
-            }
-        },        
+            return {
+                options: null,
+            };
+        },
         computed: {
             data() {
                 return this.$store.state.history.data;
@@ -29,9 +28,7 @@
             },
             isLoaded() {
                 return this.$store.state.history.data.length > 0;
-            }
-        }
-
-
-    }
+            },
+        },
+    };
 </script>

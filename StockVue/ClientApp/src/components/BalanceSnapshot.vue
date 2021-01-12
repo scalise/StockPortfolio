@@ -14,17 +14,15 @@
     </v-row>
 </template>
 <script>
-    import axios from 'axios';
-
     export default {
-        name: 'BalanceSnapshot',        
+        name: 'BalanceSnapshot',
         computed: {
             item() {
-                if (isNaN(this.$store.state.summary.balance))
+                if (isNaN(this.$store.state.summary.balance)) {
                     return null;
-
+                }
                 return this.$store.state.summary;
-            }
-        },           
-    }
+            },
+        },
+    };
 </script>

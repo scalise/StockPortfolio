@@ -6,6 +6,7 @@ import { mutations } from './mutations';
 import { RootState } from './types';
 import { counter } from './counter/index';
 import { positions } from './positions/index';
+//import { research } from './research/index';
 
 Vue.use(Vuex);
 
@@ -14,9 +15,9 @@ Vue.use(Vuex);
 const store: StoreOptions<RootState> = {
     state: {
         urlBase: 'localhost:7071', // where to get the data
-        version: '1.0.0', // a simple property        
+        version: '1.0.0', // a simple property
         summary: { balance: NaN, totalCash: 0, totalPositions: 0, todaysNetChangePercent: 0, todaysNetChangeValue: 0 },
-        history: { data:[], labels:[]}
+        history: { data: [], labels: [] },
     },
     actions,
     getters,
@@ -24,6 +25,7 @@ const store: StoreOptions<RootState> = {
     modules: {
         counter,
         positions,
+        //research,
     },
 };
 

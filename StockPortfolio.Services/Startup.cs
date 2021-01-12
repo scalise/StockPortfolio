@@ -20,8 +20,8 @@ namespace StockPortfolio.Services
             var config = new ConfigurationBuilder()
                    //.SetBasePath(Environment.CurrentDirectory)  ← do not use
                    .SetBasePath(Directory.GetCurrentDirectory())
-                   .AddJsonFile("local.settings.json", false)
-                   .AddUserSecrets(Assembly.GetExecutingAssembly(), false)
+                   .AddJsonFile("local.settings.json", true)
+                   .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
                    .AddEnvironmentVariables()
                    .Build();
 

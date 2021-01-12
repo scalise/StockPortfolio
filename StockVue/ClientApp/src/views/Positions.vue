@@ -20,45 +20,41 @@
 
 <script lang="ts">
     import { Component, Vue } from 'vue-property-decorator';
-    import StockPositions from '@/components/StockPositions.vue'; // @ is an alias to /src    
-    import AddPosition from '@/components/AddPosition.vue'; // @ is an alias to /src    
-    import { Position } from '@/store/positions/types'
+    import StockPositions from '@/components/StockPositions.vue'; // @ is an alias to /src
+    import AddPosition from '@/components/AddPosition.vue'; // @ is an alias to /src
+    import { Position } from '@/store/positions/types';
 
     @Component({
         components: {
-            StockPositions, 
-            AddPosition
+            StockPositions,
+            AddPosition,
         },
     })
     export default class Positions extends Vue {
 
-        public positions: Object[] = [];
+        public positions: object[] = [];
 
-        async mounted() {
-            console.log("mounted");
-            if (this.$store.getters['positions/positionCount'] == 0) {
-                this.fetchData();                
+        public async mounted() {
+            if (this.$store.getters['positions/positionCount'] === 0) {
+                this.fetchData();
             }
             this.positions = this.$store.getters['positions/getAll'];
         }
 
         public fetchData(): void {
-            this.$store.dispatch("positions/loadStockPositions");
+            this.$store.dispatch('positions/loadStockPositions');
         }
 
         public addedPosition(data: any): void {
-            console.log('added position');
-            this.$store.dispatch("positions/addPosition", data);
+            this.$store.dispatch('positions/addPosition', data);
         }
 
         public updatedPosition(data: Position): void {
-            console.log('updated position'); 
-            this.$store.dispatch("positions/updatePosition", data);
+            this.$store.dispatch('positions/updatePosition', data);
         }
 
         public deletedPosition(data: Position): void {
-            console.log('deleted position');
-            this.$store.dispatch("positions/removePosition", data);
+            this.$store.dispatch('positions/removePosition', data);
         }
     }
 

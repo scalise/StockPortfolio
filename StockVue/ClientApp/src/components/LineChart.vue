@@ -6,21 +6,23 @@
     which will result in an empty template and unexpected errors.
 -->
 <script>
-    import { Line } from 'vue-chartjs'
+    import { Line } from 'vue-chartjs';
 
     export default {
         name: 'LineChart',
         extends: Line,
         props: {
             chartData: {
+                /* tslint:disable:no-bitwise */
                 type: Array | Object,
-                required: false
+                /* tslint:enable:no-bitwise */
+                required: false,
             },
             chartLabels: {
                 type: Array,
-                required: true
-            }
-        },       
+                required: true,
+            },
+        },
         data() {
             return {
                 gradient: null,
@@ -31,28 +33,28 @@
                             ticks: {
                                 beginAtZero: false,
                                 callback: (value, index, values) => {
-                                    return this.formatNumber(value)
-                                }
+                                    return this.formatNumber(value);
+                                },
                             },
                             gridLines: {
                                 display: true,
                                 color: '#EEF0F4',
-                                borderDash: [5, 15]
-                            }
+                                borderDash: [5, 15],
+                            },
                         }],
                         xAxes: [{
                             gridLines: {
                                 display: true,
                                 color: '#EEF0F4',
-                                borderDash: [5, 15]
-                            }
-                        }]
+                                borderDash: [5, 15],
+                            },
+                        }],
                     },
                     tooltips: {
                         backgroundColor: '#4F5565',
                         titleFontStyle: 'normal',
                         titleFontSize: 18,
-                        bodyFontFamily: "'Proxima Nova', sans-serif",
+                        bodyFontFamily: '\'Proxima Nova\', sans-serif',
                         cornerRadius: 3,
                         bodyFontColor: '#20C4C8',
                         bodyFontSize: 14,
@@ -62,25 +64,24 @@
                         mode: 'index',
                         intersect: false,
                         callbacks: {
-                            title: tooltipItem => {
-                                return `${tooltipItem[0].xLabel}`
+                            title: (tooltipItem) => {
+                                return `${tooltipItem[0].xLabel}`;
                             },
                             label: (tooltipItem, data) => {
-                                let dataset = data.datasets[tooltipItem.datasetIndex]
-                                let currentValue = dataset.data[tooltipItem.index]
-                                return ` ${currentValue.toLocaleString()}`
-                            }
-                        }
+                                const dataset = data.datasets[tooltipItem.datasetIndex];
+                                const currentValue = dataset.data[tooltipItem.index];
+                                return ` ${currentValue.toLocaleString()}`;
+                            },
+                        },
                     },
                     legend: {
-                        display: false
+                        display: false,
                     },
                     responsive: true,
-                    maintainAspectRatio: false
-                }
-            }
+                    maintainAspectRatio: false,
+                },
+            };
         },
-
         mounted() {
             this.renderChart({
                 labels: this.chartLabels,
@@ -96,29 +97,29 @@
                         pointHitRadius: 10,
                         pointHoverBorderWidth: 1,
                         borderWidth: 1,
-                        data: this.chartData
-                    }
-                ]
-            }, this.options)
+                        data: this.chartData,
+                    },
+                ],
+            }, this.options);
         },
         methods: {
             formatNumber(num) {
-                let numString = Math.round(num).toString()
-                let numberFormatMapping = [[6, 'm'], [3, 'k']]
-                for (let [numberOfDigits, replacement] of numberFormatMapping) {
+                let numString = Math.round(num).toString();
+                const numberFormatMapping = [[6, 'm'], [3, 'k']];
+                for (const [numberOfDigits, replacement] of numberFormatMapping) {
                     if (numString.length > numberOfDigits) {
-                        let decimal = ''
+                        let decimal = '';
                         if (numString[numString.length - numberOfDigits] !== '0') {
-                            decimal = '.' + numString[numString.length - numberOfDigits]
+                            decimal = '.' + numString[numString.length - numberOfDigits];
                         }
-                        numString = numString.substr(0, numString.length - numberOfDigits) + decimal + replacement
-                        break
+                        numString = numString.substr(0, numString.length - numberOfDigits) + decimal + replacement;
+                        break;
                     }
                 }
-                return numString
-            }
-        }
-    }
+                return numString;
+            },
+        },
+    };
 </script>
 
 <style>
